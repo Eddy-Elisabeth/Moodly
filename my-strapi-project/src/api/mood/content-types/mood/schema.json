@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "moods",
+  "info": {
+    "singularName": "mood",
+    "pluralName": "moods",
+    "displayName": "Mood",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Humeur": {
+      "type": "enumeration",
+      "enum": [
+        "Content",
+        "Enerver ",
+        "Triste",
+        "Stresser",
+        "Maussade",
+        "Enthousiaste",
+        "Anxieux"
+      ]
+    },
+    "Date": {
+      "type": "date"
+    },
+    "Commentaire": {
+      "type": "text"
+    }
+  }
+}

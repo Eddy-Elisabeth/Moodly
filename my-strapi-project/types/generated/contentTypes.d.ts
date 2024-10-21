@@ -1,5 +1,42 @@
 import type { Struct, Schema } from '@strapi/strapi';
 
+export interface ApiMoodMood extends Struct.CollectionTypeSchema {
+  collectionName: 'moods';
+  info: {
+    singularName: 'mood';
+    pluralName: 'moods';
+    displayName: 'Mood';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Humeur: Schema.Attribute.Enumeration<
+      [
+        'Heureux',
+        'Triste',
+        'En col\u00E8re',
+        'Stress\u00E9',
+        'Maussade',
+        'Blas\u00E9',
+        'Fatigu\u00E9',
+      ]
+    >;
+    Commentaire: Schema.Attribute.RichText;
+    Anonyme: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::mood.mood'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Struct.CollectionTypeSchema {
   collectionName: 'files';
   info: {
@@ -867,6 +904,7 @@ export interface AdminTransferTokenPermission
 declare module '@strapi/strapi' {
   export module Public {
     export interface ContentTypeSchemas {
+      'api::mood.mood': ApiMoodMood;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::i18n.locale': PluginI18NLocale;

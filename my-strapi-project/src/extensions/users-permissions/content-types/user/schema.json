@@ -70,9 +70,9 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "mood": {
+    "moods": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::mood.mood"
     }
   }

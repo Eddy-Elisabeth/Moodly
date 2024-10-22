@@ -6,6 +6,7 @@ export interface ApiMoodMood extends Struct.CollectionTypeSchema {
     singularName: 'mood';
     pluralName: 'moods';
     displayName: 'Mood';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -24,6 +25,10 @@ export interface ApiMoodMood extends Struct.CollectionTypeSchema {
     >;
     Commentaire: Schema.Attribute.RichText;
     Anonyme: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    users_permissions_user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -519,7 +524,7 @@ export interface PluginUsersPermissionsUser
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    mood: Schema.Attribute.Relation<'oneToOne', 'api::mood.mood'>;
+    moods: Schema.Attribute.Relation<'oneToMany', 'api::mood.mood'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

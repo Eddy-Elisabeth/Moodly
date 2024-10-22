@@ -69,6 +69,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "mood": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::mood.mood"
     }
   }
 }

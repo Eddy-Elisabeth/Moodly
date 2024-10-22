@@ -519,6 +519,7 @@ export interface PluginUsersPermissionsUser
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+    mood: Schema.Attribute.Relation<'oneToOne', 'api::mood.mood'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

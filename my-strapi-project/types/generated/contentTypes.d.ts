@@ -25,8 +25,8 @@ export interface ApiMoodMood extends Struct.CollectionTypeSchema {
     >;
     Commentaire: Schema.Attribute.RichText;
     Anonyme: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    users_permissions_user: Schema.Attribute.Relation<
-      'oneToOne',
+    users_permissions_users: Schema.Attribute.Relation<
+      'oneToMany',
       'plugin::users-permissions.user'
     >;
     createdAt: Schema.Attribute.DateTime;
@@ -520,11 +520,6 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    users_permissions_user: Schema.Attribute.Relation<
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    moods: Schema.Attribute.Relation<'oneToMany', 'api::mood.mood'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

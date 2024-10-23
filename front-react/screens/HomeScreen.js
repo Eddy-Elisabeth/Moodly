@@ -722,3 +722,191 @@ const HomeScreen = ({ navigation }) => {
 export default HomeScreen;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import { View, Text, Button, Alert, Dimensions, ScrollView, Picker } from 'react-native';
+// import axios from 'axios';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { BarChart } from 'react-native-chart-kit';
+
+// const HomeScreen = ({ navigation }) => {
+//   const [moods, setMoods] = useState([]);
+//   const [moodCounts, setMoodCounts] = useState({
+//     Heureux: 0,
+//     Triste: 0,
+//     "En colère": 0,
+//     Stressé: 0,
+//     Maussade: 0,
+//     Blasé: 0,
+//     Fatigué: 0,
+//   });
+//   const [filter, setFilter] = useState('7'); // Par défaut : filtre sur 7 jours
+
+//   useEffect(() => {
+//     const fetchMoods = async () => {
+//       const token = await AsyncStorage.getItem('token');
+//       console.log("Token utilisé pour l'API :", token);
+
+//       if (!token) {
+//         Alert.alert('Erreur', 'Token non disponible');
+//         return;
+//       }
+
+//       try {
+//         // Calcul de la date limite en fonction du filtre
+//         const dateLimit = new Date();
+//         dateLimit.setDate(dateLimit.getDate() - parseInt(filter)); // 7 ou 30 jours
+
+//         const response = await axios.get('http://localhost:1337/api/moods', {
+//           headers: { Authorization: `Bearer ${token}` },
+//           params: {
+//             filters: {
+//               createdAt: { $gte: dateLimit.toISOString() },
+//             },
+//           },
+//         });
+
+//         console.log("Réponse de l'API :", response.data);
+
+//         const fetchedMoods = response.data.data;
+
+//         // Compter les occurrences des différentes humeurs
+//         const moodCountsCopy = {
+//           Heureux: 0,
+//           Triste: 0,
+//           "En colère": 0,
+//           Stressé: 0,
+//           Maussade: 0,
+//           Blasé: 0,
+//           Fatigué: 0,
+//         };
+
+//         // Mise à jour du compteur des humeurs
+//         fetchedMoods.forEach((mood) => {
+//           const currentMood = mood.Humeur;  // Accès direct à mood.Humeur
+//           if (moodCountsCopy[currentMood] !== undefined) {
+//             moodCountsCopy[currentMood] += 1;
+//           }
+//         });
+
+//         setMoods(fetchedMoods);  // Met à jour le tableau des humeurs
+//         setMoodCounts(moodCountsCopy);  // Met à jour le compteur des humeurs
+//       } catch (error) {
+//         console.log("Erreur lors de la récupération des humeurs :", error.response?.data || error.message);
+//         Alert.alert('Erreur', 'Impossible de récupérer les humeurs');
+//       }
+//     };
+
+//     fetchMoods();
+//   }, [filter]); // Relance la récupération des humeurs lorsque le filtre change
+
+//   const screenWidth = Dimensions.get('window').width;
+
+//   // Préparer les données pour le graphique
+//   const chartData = {
+//     labels: Object.keys(moodCounts),  // Les humeurs
+//     datasets: [
+//       {
+//         data: Object.values(moodCounts),  // Quantité pour chaque humeur
+//       },
+//     ],
+//   };
+
+//   return (
+//     <ScrollView>
+//       <View style={{ padding: 20 }}>
+//         <Button title="Poster une humeur" onPress={() => navigation.navigate('Mood')} />
+//         <Text style={{ fontSize: 18, marginBottom: 10 }}>Résumé de vos humeurs :</Text>
+
+//         {/* Sélecteur pour choisir la période */}
+//         <Text>Choisir une période :</Text>
+//         <Picker
+//           selectedValue={filter}
+//           onValueChange={(itemValue) => setFilter(itemValue)}
+//         >
+//           <Picker.Item label="7 derniers jours" value="7" />
+//           <Picker.Item label="30 derniers jours" value="30" />
+//         </Picker>
+
+//         {/* Graphique des humeurs */}
+//         <BarChart
+//           data={chartData}
+//           width={screenWidth - 40}  // Largeur du graphique
+//           height={220}  // Hauteur du graphique
+//           fromZero={true}  // Commencer le graphique à zéro
+//           chartConfig={{
+//             backgroundColor: '#ffffff',
+//             backgroundGradientFrom: '#f5f5f5',
+//             backgroundGradientTo: '#ffffff',
+//             decimalPlaces: 0, // Pas de décimales
+//             color: (opacity = 1) => `rgba(0, 123, 255, ${opacity})`,
+//             labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+//           }}
+//           style={{
+//             marginVertical: 8,
+//             borderRadius: 16,
+//           }}
+//         />
+
+//         {/* Afficher les commentaires */}
+//         <Text style={{ fontSize: 18, marginTop: 20 }}>Commentaires sur vos humeurs :</Text>
+//         {moods.length > 0 ? (
+//           moods.map((mood) => (
+//             <View key={mood.id} style={{ marginBottom: 10 }}>
+//               <Text style={{ fontWeight: 'bold' }}>{mood.Humeur}</Text>
+//               <Text>{mood.Commentaire || "Pas de commentaire"}</Text>
+//             </View>
+//           ))
+//         ) : (
+//           <Text>Aucun commentaire disponible</Text>
+//         )}
+//       </View>
+//     </ScrollView>
+//   );
+// };
+
+// export default HomeScreen;

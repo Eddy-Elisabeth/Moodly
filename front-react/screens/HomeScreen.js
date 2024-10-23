@@ -1729,10 +1729,13 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, Alert, Dimensions, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Alert, Dimensions, ScrollView, StyleSheet, TouchableOpacity, Image } from 'react-native';  // Ajout de l'import Image
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BarChart } from 'react-native-chart-kit';
+
+// Assurez-vous que l'image est disponible à cet emplacement
+const avatarImage = require('../asset_front/07 Profile avatar.png');  // Change le chemin si nécessaire
 
 const HomeScreen = ({ navigation }) => {
   const [moods, setMoods] = useState([]);
@@ -1814,7 +1817,8 @@ const HomeScreen = ({ navigation }) => {
     return (
       <View style={styles.emptyContainer}>
         <View style={styles.profileContainer}>
-          <View style={styles.avatar}></View>
+          {/* Utilisation de l'image à la place du cercle vert */}
+          <Image source={avatarImage} style={styles.avatar} />
           <Text style={styles.title}>Bonjour, Juliette</Text>
           <Text style={styles.subtitle}>Dimanche, 2 Janvier</Text>
         </View>
@@ -1904,6 +1908,7 @@ const getDailyQuote = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    paddingTop: 80,
   },
   emptyContainer: {
     flex: 1,
@@ -1918,8 +1923,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 80,
     height: 80,
-    backgroundColor: '#C8E6C9',
-    borderRadius: 40,
+    borderRadius: 40, // Rond
     marginBottom: 10,
   },
   title: {
@@ -1989,6 +1993,7 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
+
 
 
 

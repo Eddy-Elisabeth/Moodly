@@ -15,13 +15,14 @@
     "Humeur": {
       "type": "enumeration",
       "enum": [
-        "Heureux",
+        "Pet’ la forme",
         "Triste",
-        "En colère",
+        "Aigris",
         "Stressé",
-        "Maussade",
+        "Dans le mou",
         "Blasé",
-        "Fatigué"
+        "Fatigué",
+        "Dans le mood"
       ]
     },
     "Commentaire": {

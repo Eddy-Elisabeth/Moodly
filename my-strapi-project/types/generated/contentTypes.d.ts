@@ -14,13 +14,14 @@ export interface ApiMoodMood extends Struct.CollectionTypeSchema {
   attributes: {
     Humeur: Schema.Attribute.Enumeration<
       [
-        'Heureux',
+        'Pet\u2019 la forme',
         'Triste',
-        'En col\u00E8re',
+        'Aigris',
         'Stress\u00E9',
-        'Maussade',
+        'Dans le mou',
         'Blas\u00E9',
         'Fatigu\u00E9',
+        'Dans le mood',
       ]
     >;
     Commentaire: Schema.Attribute.RichText;

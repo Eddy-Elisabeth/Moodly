@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   logo: {
-    width: 150, // Ajuste selon la taille de ton logo
-    height: 150,
-    marginBottom: 40,
+    width: 250, // Ajuste selon la taille de ton logo
+    height: 290,
+    marginBottom: 100,
   },
   signInButton: {
     backgroundColor: '#FFD600', // Jaune pour "Se connecter"

@@ -597,129 +597,129 @@
 
 
 
-import React, { useEffect, useState } from 'react';
-import { View, Text, Button, Alert, Dimensions, ScrollView } from 'react-native';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { BarChart } from 'react-native-chart-kit';
+// import React, { useEffect, useState } from 'react';
+// import { View, Text, Button, Alert, Dimensions, ScrollView } from 'react-native';
+// import axios from 'axios';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { BarChart } from 'react-native-chart-kit';
 
-const HomeScreen = ({ navigation }) => {
-  const [moods, setMoods] = useState([]);
-  const [moodCounts, setMoodCounts] = useState({
-    Heureux: 0,
-    Triste: 0,
-    "En colère": 0,
-    Stressé: 0,
-    Maussade: 0,
-    Blasé: 0,
-    Fatigué: 0,
-  });
+// const HomeScreen = ({ navigation }) => {
+//   const [moods, setMoods] = useState([]);
+//   const [moodCounts, setMoodCounts] = useState({
+//     Heureux: 0,
+//     Triste: 0,
+//     "En colère": 0,
+//     Stressé: 0,
+//     Maussade: 0,
+//     Blasé: 0,
+//     Fatigué: 0,
+//   });
 
-  useEffect(() => {
-    const fetchMoods = async () => {
-      const token = await AsyncStorage.getItem('token');
-      console.log("Token utilisé pour l'API :", token);
+//   useEffect(() => {
+//     const fetchMoods = async () => {
+//       const token = await AsyncStorage.getItem('token');
+//       console.log("Token utilisé pour l'API :", token);
 
-      if (!token) {
-        Alert.alert('Erreur', 'Token non disponible');
-        return;
-      }
+//       if (!token) {
+//         Alert.alert('Erreur', 'Token non disponible');
+//         return;
+//       }
 
-      try {
-        const response = await axios.get('http://localhost:1337/api/moods', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+//       try {
+//         const response = await axios.get('http://localhost:1337/api/moods', {
+//           headers: { Authorization: `Bearer ${token}` },
+//         });
 
-        console.log("Réponse de l'API :", response.data);
+//         console.log("Réponse de l'API :", response.data);
 
-        const fetchedMoods = response.data.data;
+//         const fetchedMoods = response.data.data;
 
-        // Compter les occurrences des différentes humeurs
-        const moodCountsCopy = {
-          Heureux: 0,
-          Triste: 0,
-          "En colère": 0,
-          Stressé: 0,
-          Maussade: 0,
-          Blasé: 0,
-          Fatigué: 0,
-        };
+//         // Compter les occurrences des différentes humeurs
+//         const moodCountsCopy = {
+//           Heureux: 0,
+//           Triste: 0,
+//           "En colère": 0,
+//           Stressé: 0,
+//           Maussade: 0,
+//           Blasé: 0,
+//           Fatigué: 0,
+//         };
 
-        // Mise à jour du compteur des humeurs
-        fetchedMoods.forEach((mood) => {
-          const currentMood = mood.Humeur;  // Accès direct à mood.Humeur
-          if (moodCountsCopy[currentMood] !== undefined) {
-            moodCountsCopy[currentMood] += 1;
-          }
-        });
+//         // Mise à jour du compteur des humeurs
+//         fetchedMoods.forEach((mood) => {
+//           const currentMood = mood.Humeur;  // Accès direct à mood.Humeur
+//           if (moodCountsCopy[currentMood] !== undefined) {
+//             moodCountsCopy[currentMood] += 1;
+//           }
+//         });
 
-        setMoods(fetchedMoods);  // Met à jour le tableau des humeurs
-        setMoodCounts(moodCountsCopy);  // Met à jour le compteur des humeurs
-      } catch (error) {
-        console.log("Erreur lors de la récupération des humeurs :", error.response?.data || error.message);
-        Alert.alert('Erreur', 'Impossible de récupérer les humeurs');
-      }
-    };
+//         setMoods(fetchedMoods);  // Met à jour le tableau des humeurs
+//         setMoodCounts(moodCountsCopy);  // Met à jour le compteur des humeurs
+//       } catch (error) {
+//         console.log("Erreur lors de la récupération des humeurs :", error.response?.data || error.message);
+//         Alert.alert('Erreur', 'Impossible de récupérer les humeurs');
+//       }
+//     };
 
-    fetchMoods();
-  }, []);
+//     fetchMoods();
+//   }, []);
 
-  const screenWidth = Dimensions.get('window').width;
+//   const screenWidth = Dimensions.get('window').width;
 
-  // Préparer les données pour le graphique
-  const chartData = {
-    labels: Object.keys(moodCounts),  // Les humeurs
-    datasets: [
-      {
-        data: Object.values(moodCounts),  // Quantité pour chaque humeur
-      },
-    ],
-  };
+//   // Préparer les données pour le graphique
+//   const chartData = {
+//     labels: Object.keys(moodCounts),  // Les humeurs
+//     datasets: [
+//       {
+//         data: Object.values(moodCounts),  // Quantité pour chaque humeur
+//       },
+//     ],
+//   };
 
-  return (
-    <ScrollView>
-      <View style={{ padding: 20 }}>
-        <Button title="Poster une humeur" onPress={() => navigation.navigate('Mood')} />
-        <Text style={{ fontSize: 18, marginBottom: 10 }}>Résumé de vos humeurs :</Text>
+//   return (
+//     <ScrollView>
+//       <View style={{ padding: 20 }}>
+//         <Button title="Poster une humeur" onPress={() => navigation.navigate('Mood')} />
+//         <Text style={{ fontSize: 18, marginBottom: 10 }}>Résumé de vos humeurs :</Text>
 
-        {/* Graphique des humeurs */}
-        <BarChart
-          data={chartData}
-          width={screenWidth - 40}  // Largeur du graphique
-          height={220}  // Hauteur du graphique
-          fromZero={true}  // Commencer le graphique à zéro
-          chartConfig={{
-            backgroundColor: '#ffffff',
-            backgroundGradientFrom: '#f5f5f5',
-            backgroundGradientTo: '#ffffff',
-            decimalPlaces: 0, // Pas de décimales
-            color: (opacity = 1) => `rgba(0, 123, 255, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-          }}
-          style={{
-            marginVertical: 8,
-            borderRadius: 16,
-          }}
-        />
+//         {/* Graphique des humeurs */}
+//         <BarChart
+//           data={chartData}
+//           width={screenWidth - 40}  // Largeur du graphique
+//           height={220}  // Hauteur du graphique
+//           fromZero={true}  // Commencer le graphique à zéro
+//           chartConfig={{
+//             backgroundColor: '#ffffff',
+//             backgroundGradientFrom: '#f5f5f5',
+//             backgroundGradientTo: '#ffffff',
+//             decimalPlaces: 0, // Pas de décimales
+//             color: (opacity = 1) => `rgba(0, 123, 255, ${opacity})`,
+//             labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+//           }}
+//           style={{
+//             marginVertical: 8,
+//             borderRadius: 16,
+//           }}
+//         />
 
-        {/* Afficher les commentaires */}
-        <Text style={{ fontSize: 18, marginTop: 20 }}>Commentaires sur vos humeurs :</Text>
-        {moods.length > 0 ? (
-          moods.map((mood) => (
-            <View key={mood.id} style={{ marginBottom: 10 }}>
-              <Text style={{ fontWeight: 'bold' }}>{mood.Humeur}</Text>
-              <Text>{mood.Commentaire || "Pas de commentaire"}</Text>
-            </View>
-          ))
-        ) : (
-          <Text>Aucun commentaire disponible</Text>
-        )}
-      </View>
-    </ScrollView>
-  );
-};
+//         {/* Afficher les commentaires */}
+//         <Text style={{ fontSize: 18, marginTop: 20 }}>Commentaires sur vos humeurs :</Text>
+//         {moods.length > 0 ? (
+//           moods.map((mood) => (
+//             <View key={mood.id} style={{ marginBottom: 10 }}>
+//               <Text style={{ fontWeight: 'bold' }}>{mood.Humeur}</Text>
+//               <Text>{mood.Commentaire || "Pas de commentaire"}</Text>
+//             </View>
+//           ))
+//         ) : (
+//           <Text>Aucun commentaire disponible</Text>
+//         )}
+//       </View>
+//     </ScrollView>
+//   );
+// };
 
-export default HomeScreen;
+// export default HomeScreen;
 
 
 
@@ -768,7 +768,8 @@ export default HomeScreen;
 
 
 // import React, { useEffect, useState } from 'react';
-// import { View, Text, Button, Alert, Dimensions, ScrollView, Picker } from 'react-native';
+// import { View, Text, Button, Alert, Dimensions, ScrollView } from 'react-native';
+// import { Picker } from '@react-native-picker/picker'; // Correct import
 // import axios from 'axios';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { BarChart } from 'react-native-chart-kit';
@@ -910,3 +911,229 @@ export default HomeScreen;
 // };
 
 // export default HomeScreen;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useEffect, useState } from 'react';
+import { View, Text, Button, Alert, Dimensions, ScrollView } from 'react-native';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { BarChart } from 'react-native-chart-kit';
+
+// Fonction pour générer une citation du jour
+const getDailyQuote = () => {
+  const quotes = [
+    "La vie est un mystère qu'il faut vivre, et non un problème à résoudre.",
+    "Le plus grand plaisir de la vie est de réaliser ce que les autres vous pensent incapable de réaliser.",
+    "Chaque jour est une nouvelle chance de faire mieux qu'hier.",
+    "La seule limite à notre épanouissement de demain sera nos doutes d'aujourd'hui.",
+    "Rien n'est impossible, seul le possible prend du temps."
+  ];
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  return quotes[randomIndex];
+};
+
+const HomeScreen = ({ navigation }) => {
+  const [moods, setMoods] = useState([]);
+  const [moodCounts, setMoodCounts] = useState({
+    Heureux: 0,
+    Triste: 0,
+    "En colère": 0,
+    Stressé: 0,
+    Maussade: 0,
+    Blasé: 0,
+    Fatigué: 0,
+  });
+  const [selectedFilter, setSelectedFilter] = useState('7'); // Filtre par défaut sur 7 jours
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetchMoods = async () => {
+      const token = await AsyncStorage.getItem('token');
+      console.log("Token utilisé pour l'API :", token);
+
+      if (!token) {
+        Alert.alert('Erreur', 'Token non disponible');
+        return;
+      }
+
+      try {
+        const response = await axios.get('http://localhost:1337/api/moods', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        console.log("Réponse de l'API :", response.data);
+
+        const fetchedMoods = response.data.data;
+
+        // Si aucune humeur n'est récupérée
+        if (fetchedMoods.length === 0) {
+          setError(true); // Affiche la page vide si pas d'humeurs
+          return;
+        }
+
+        // Compter les occurrences des différentes humeurs
+        const moodCountsCopy = {
+          Heureux: 0,
+          Triste: 0,
+          "En colère": 0,
+          Stressé: 0,
+          Maussade: 0,
+          Blasé: 0,
+          Fatigué: 0,
+        };
+
+        // Mise à jour du compteur des humeurs
+        fetchedMoods.forEach((mood) => {
+          const currentMood = mood.Humeur;  // Accès direct à mood.Humeur
+          if (moodCountsCopy[currentMood] !== undefined) {
+            moodCountsCopy[currentMood] += 1;
+          }
+        });
+
+        setMoods(fetchedMoods);  // Met à jour le tableau des humeurs
+        setMoodCounts(moodCountsCopy);  // Met à jour le compteur des humeurs
+        setError(false);  // Réinitialise l'état d'erreur si humeurs récupérées
+      } catch (error) {
+        console.log("Erreur lors de la récupération des humeurs :", error.response?.data || error.message);
+        setError(true); // Affiche la page vide en cas d'erreur
+      }
+    };
+
+    fetchMoods();
+  }, []);
+
+  const screenWidth = Dimensions.get('window').width;
+
+  // Préparer les données pour le graphique
+  const chartData = {
+    labels: Object.keys(moodCounts),  // Les humeurs
+    datasets: [
+      {
+        data: Object.values(moodCounts),  // Quantité pour chaque humeur
+      },
+    ],
+  };
+
+  // Si erreur ou aucune humeur récupérée, afficher une page vide avec une citation
+  if (error || moods.length === 0) {
+    return (
+      <View style={{ padding: 20 }}>
+        <Button title="Poster une humeur" onPress={() => navigation.navigate('Mood')} />
+        <Text style={{ fontStyle: 'italic', marginTop: 20, textAlign: 'center' }}>
+          "{getDailyQuote()}"
+        </Text>
+      </View>
+    );
+  }
+
+  return (
+    <ScrollView>
+      <View style={{ padding: 20 }}>
+        <Button title="Poster une humeur" onPress={() => navigation.navigate('Mood')} />
+
+        {/* Boutons pour les filtres */}
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+          <Button
+            title="Afficher les 7 derniers jours"
+            onPress={() => setSelectedFilter('7')}
+            color={selectedFilter === '7' ? 'blue' : 'gray'}
+          />
+          <Button
+            title="Afficher les 30 derniers jours"
+            onPress={() => setSelectedFilter('30')}
+            color={selectedFilter === '30' ? 'blue' : 'gray'}
+          />
+        </View>
+
+        {/* Graphique des humeurs */}
+        <BarChart
+          data={chartData}
+          width={screenWidth - 40}  // Largeur du graphique
+          height={220}  // Hauteur du graphique
+          fromZero={true}  // Commencer le graphique à zéro
+          chartConfig={{
+            backgroundColor: '#ffffff',
+            backgroundGradientFrom: '#f5f5f5',
+            backgroundGradientTo: '#ffffff',
+            decimalPlaces: 0, // Pas de décimales
+            color: (opacity = 1) => `rgba(0, 123, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          }}
+          style={{
+            marginVertical: 8,
+            borderRadius: 16,
+          }}
+        />
+
+        {/* Afficher les commentaires */}
+        <Text style={{ fontSize: 18, marginTop: 20 }}>Commentaires sur vos humeurs :</Text>
+        {moods.length > 0 ? (
+          moods.map((mood) => (
+            <View key={mood.id} style={{ marginBottom: 10 }}>
+              <Text style={{ fontWeight: 'bold' }}>{mood.Humeur}</Text>
+              <Text>{mood.Commentaire || "Pas de commentaire"}</Text>
+            </View>
+          ))
+        ) : (
+          <Text>Aucun commentaire disponible</Text>
+        )}
+      </View>
+    </ScrollView>
+  );
+};
+
+export default HomeScreen;

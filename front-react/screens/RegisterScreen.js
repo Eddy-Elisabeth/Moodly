@@ -41,3 +41,249 @@ const RegisterScreen = ({ navigation }) => {
 };
 
 export default RegisterScreen;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useState } from 'react';
+// import { View, TextInput, Button, Alert } from 'react-native';
+// import axios from 'axios';
+// import { Picker } from '@react-native-picker/picker';  // Import du bon package
+
+// const RegisterScreen = ({ navigation }) => {
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [username, setUsername] = useState('');
+//   const [role, setRole] = useState('Authenticated'); // Rôle par défaut
+
+//   const handleRegister = async () => {
+//     try {
+//       const response = await axios.post('http://localhost:1337/api/auth/local/register', {
+//         username,
+//         email,
+//         password,
+//         role,
+//       });
+//       Alert.alert('Succès', 'Inscription réussie');
+//       navigation.navigate('Login');
+//     } catch (error) {
+//       Alert.alert('Erreur', 'Erreur lors de l\'inscription');
+//     }
+//   };
+
+//   return (
+//     <View style={{ padding: 20 }}>
+//       <TextInput
+//         placeholder="Nom d'utilisateur"
+//         value={username}
+//         onChangeText={setUsername}
+//         style={{ marginBottom: 20, borderColor: 'gray', borderWidth: 1 }}
+//       />
+//       <TextInput
+//         placeholder="Email"
+//         value={email}
+//         onChangeText={setEmail}
+//         style={{ marginBottom: 20, borderColor: 'gray', borderWidth: 1 }}
+//       />
+//       <TextInput
+//         placeholder="Mot de passe"
+//         value={password}
+//         onChangeText={setPassword}
+//         secureTextEntry
+//         style={{ marginBottom: 20, borderColor: 'gray', borderWidth: 1 }}
+//       />
+
+//       {/* Sélection du rôle */}
+//       <Picker
+//         selectedValue={role}
+//         onValueChange={(itemValue) => setRole(itemValue)}
+//         style={{ marginBottom: 20 }}
+//       >
+//         <Picker.Item label="Utilisateur" value="Authenticated" />
+//         <Picker.Item label="Manager" value="Manager" />
+//       </Picker>
+
+//       <Button title="S'inscrire" onPress={handleRegister} />
+//     </View>
+//   );
+// };
+
+// export default RegisterScreen;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useState } from 'react';
+// import { View, TextInput, Button, Text, Alert } from 'react-native';
+// import axios from 'axios';
+// import { Picker } from '@react-native-picker/picker';
+
+// const RegisterScreen = ({ navigation }) => {
+//   const [username, setUsername] = useState('');
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [selectedRole, setSelectedRole] = useState('authenticated'); // Role par défaut
+
+//   const handleRegister = async () => {
+//     try {
+//       // Étape 1: Enregistre l'utilisateur sans le rôle
+//       const registerResponse = await axios.post('http://localhost:1337/api/auth/local/register', {
+//         username,
+//         email,
+//         password,
+//       });
+
+//       const userId = registerResponse.data.user.id; // ID de l'utilisateur créé
+//       const token = registerResponse.data.jwt; // Token pour l'authentification
+
+//       // Étape 2: Assigne le rôle à l'utilisateur
+//       await axios.put(
+//         `http://localhost:1337/api/users/${userId}`, // Met à jour l'utilisateur créé
+//         { role: selectedRole === 'manager' ? 3 : 2 }, // 3 pour Manager, 2 pour Authenticated (modifie ces valeurs selon tes IDs réels)
+//         { headers: { Authorization: `Bearer ${token}` } } // Utilise le token pour l'authentification
+//       );
+
+//       Alert.alert('Succès', 'Inscription réussie avec rôle attribué');
+//       navigation.navigate('Login'); // Redirige vers la page de connexion après l'inscription
+//     } catch (error) {
+//       Alert.alert('Erreur', 'Erreur lors de l\'inscription');
+//       console.log(error.response.data);
+//     }
+//   };
+
+//   return (
+//     <View>
+//       <TextInput
+//         placeholder="Nom d'utilisateur"
+//         value={username}
+//         onChangeText={setUsername}
+//         style={{ marginBottom: 20, borderColor: 'gray', borderWidth: 1 }}
+//       />
+//       <TextInput
+//         placeholder="Email"
+//         value={email}
+//         onChangeText={setEmail}
+//         style={{ marginBottom: 20, borderColor: 'gray', borderWidth: 1 }}
+//       />
+//       <TextInput
+//         placeholder="Mot de passe"
+//         value={password}
+//         onChangeText={setPassword}
+//         secureTextEntry
+//         style={{ marginBottom: 20, borderColor: 'gray', borderWidth: 1 }}
+//       />
+//       <Text>Choisissez un rôle :</Text>
+//       <Picker
+//         selectedValue={selectedRole}
+//         onValueChange={(itemValue) => setSelectedRole(itemValue)}
+//         style={{ height: 50, width: 200 }}
+//       >
+//         <Picker.Item label="Authenticated" value="authenticated" />
+//         <Picker.Item label="Manager" value="manager" />
+//       </Picker>
+
+//       <Button title="S'inscrire" onPress={handleRegister} />
+//     </View>
+//   );
+// };
+
+// export default RegisterScreen;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

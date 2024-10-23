@@ -6,6 +6,7 @@ export interface ApiMoodMood extends Struct.CollectionTypeSchema {
     singularName: 'mood';
     pluralName: 'moods';
     displayName: 'Mood';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -13,17 +14,22 @@ export interface ApiMoodMood extends Struct.CollectionTypeSchema {
   attributes: {
     Humeur: Schema.Attribute.Enumeration<
       [
-        'Heureux',
+        'Pet\u2019 la forme',
         'Triste',
-        'En col\u00E8re',
+        'Aigris',
         'Stress\u00E9',
-        'Maussade',
+        'Dans le mou',
         'Blas\u00E9',
         'Fatigu\u00E9',
+        'Dans le mood',
       ]
     >;
     Commentaire: Schema.Attribute.RichText;
     Anonyme: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    users_permissions_users: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -487,7 +493,6 @@ export interface PluginUsersPermissionsUser
     displayName: 'User';
   };
   options: {
-    timestamps: true;
     draftAndPublish: false;
   };
   attributes: {

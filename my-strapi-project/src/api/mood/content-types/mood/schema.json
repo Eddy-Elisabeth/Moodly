@@ -4,7 +4,8 @@
   "info": {
     "singularName": "mood",
     "pluralName": "moods",
-    "displayName": "Mood"
+    "displayName": "Mood",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -14,13 +15,14 @@
     "Humeur": {
       "type": "enumeration",
       "enum": [
-        "Heureux",
+        "Pet’ la forme",
         "Triste",
-        "En colère",
+        "Aigris",
         "Stressé",
-        "Maussade",
+        "Dans le mou",
         "Blasé",
-        "Fatigué"
+        "Fatigué",
+        "Dans le mood"
       ]
     },
     "Commentaire": {
@@ -29,6 +31,11 @@
     "Anonyme": {
       "type": "boolean",
       "default": true
+    },
+    "users_permissions_users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

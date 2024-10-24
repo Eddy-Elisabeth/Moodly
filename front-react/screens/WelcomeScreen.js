@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   signUpButton: {
-    backgroundColor: '#00008B', // Bleu foncé pour "S'inscrire"
+    backgroundColor: '#000000', // Bleu foncé pour "S'inscrire"
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 10,

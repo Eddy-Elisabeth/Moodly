@@ -4,7 +4,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const moodOptions = [
-  { label: 'Pet’ la forme', value: 'Pet\' la forme', color: '#FFE082', emoji: require('../asset_front/4.png') },
+  { label: 'Pet’ la forme', value: 'Pet’ la forme', color: '#FFE082', emoji: require('../asset_front/4.png') },
   { label: 'Dans le mood', value: 'Content', color: '#C8E6C9', emoji: require('../asset_front/5.png') },
   { label: 'Dans le mou', value: 'Dans le mou', color: '#F8BBD0', emoji: require('../asset_front/2.png') },
   { label: 'Aigris', value: 'Aigris', color: '#FFAB91', emoji: require('../asset_front/3.png') },
